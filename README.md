@@ -29,7 +29,7 @@ python inference.py --data_file data/4chan_images_only.txt \
                     --model_file the/finetuned/model/path \
                     --save_dir data
 ```
-- The input `4chan.txt` is a long list of dicts with image location, comment, and the posted time as keys. [CLIP] (https://github.com/openai/CLIP) will compute both text and image embeddings and save into a npz file sequentially. The finetuned
+- The input `4chan.txt` is a long list of dicts with image location, comment, and the posted time as keys. [CLIP](https://github.com/openai/CLIP) will compute both text and image embeddings and save into a npz file sequentially. The finetuned
 CLIP model can be downloaded [here](). By changing `4chan.txt` to `4chan_images_only.txt`, We can compute non-duplicated image embeddings only to improve computing efficiency later. `4chan_images_only.txt` is also a long list of dicts with image location and its phash as keys. 
 - Output: Image-text or image embeddings saved as `embeddings.npz` or `image_embeddings.npy`.
 
