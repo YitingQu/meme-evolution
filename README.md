@@ -8,7 +8,7 @@ multimodal meme representations, i.e., CLIP embeddings, and perform DBSCAN clust
 
 ## Requirements
 ```
-    pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 ## Running the Pipeline
 
@@ -18,15 +18,15 @@ Now we describe the running pipeline with a set of test data.
 
 To get all image and text embeddings:
 ```
-    python inference.py --data_file data/4chan.txt \
-                        --model_file the/finetuned/model/path \
-                        --save_dir data
+python inference.py --data_file data/4chan.txt \
+                    --model_file the/finetuned/model/path \
+                    --save_dir data
 ```
 To get non-duplicated image embeddings only:
 ```
-    python inference.py --data_file data/4chan_images_only.txt \
-                        --model_file the/finetuned/model/path \
-                        --save_dir data
+python inference.py --data_file data/4chan_images_only.txt \
+                    --model_file the/finetuned/model/path \
+                    --save_dir data
 ```
 - The input `4chan.txt` is a long list of dicts with image location, comment, and the posted time as keys. [CLIP (https://github.com/openai/CLIP) will compute both text and image embeddings and save into a npz file sequentially. The finetuned
 CLIP model can be downloaded [here](). By changing `4chan.txt` to `4chan_images_only.txt`, We can compute non-duplicated image embeddings only to improve computing efficiency later. `4chan_images_only.txt` is also a long list of dicts with image location and its phash as keys. 
@@ -36,15 +36,15 @@ CLIP model can be downloaded [here](). By changing `4chan.txt` to `4chan_images_
 
 To cluster, annotate, and assess hate:
 ```
-    python cluster.py --data_file data/4chan.txt \
-                      --embeddings_dir data/embeddings.npz \
-                      --perspective_dir data/perspective.txt \
-                      --rewire_dir data/rewire.txt \
-                      --eps 3 \
-                      --min_samples 5 \
-                      --save_dir result/multimodal_clusters
+python cluster.py --data_file data/4chan.txt \
+                  --embeddings_dir data/embeddings.npz \
+                  --perspective_dir data/perspective.txt \
+                  --rewire_dir data/rewire.txt \
+                  --eps 3 \
+                  --min_samples 5 \
+                  --save_dir result/multimodal_clusters
 ```
-- The input `--embeddings_dir` requires a npz file of both image and text embeddings obtained previously. `--perspective_dir` and `--rewire_dir` is text toxicity scores obtained with [Google Perspective API](https://perspectiveapi.com/) and [Rewire API (https://rewire.online/). `--eps` and `--min_samples` are DBSCAN parameters that we determine with subsets of 4chan data. 
+- The input `--embeddings_dir` requires a npz file of both image and text embeddings obtained previously. `--perspective_dir` and `--rewire_dir` is text toxicity scores obtained with [Google Perspective API](https://perspectiveapi.com/) and [Rewire API](https://rewire.online/). `--eps` and `--min_samples` are DBSCAN parameters that we determine with subsets of 4chan data. 
 - Output: cluster annotations (.xlsx), cluster graph (.gexf), tsne projection (.pdf)
 
 ### Hateful Memes Evolution
@@ -53,28 +53,28 @@ To cluster, annotate, and assess hate:
 
 #### A. Visual Semantic Regularity {#a-visual-semantic-regularity}
 ```
-    python extract_visual_regularities.py --meme HappyMerchant \
-                                          --image_dict data/4chan_images_only.txt \
-                                          --image_embeddings data/image_embeddings.npy \
-                                          --image_root data/images \
-                                          --lower 0.85 \
-                                          --higher 0.91 \
-                                          --influencer_lower 0.91 \
-                                          --final_thred 0.94 \
-                                          --save_dir result/visual_regularity
+python extract_visual_regularities.py --meme HappyMerchant \
+                                      --image_dict data/4chan_images_only.txt \
+                                      --image_embeddings data/image_embeddings.npy \
+                                      --image_root data/images \
+                                      --lower 0.85 \
+                                      --higher 0.91 \
+                                      --influencer_lower 0.91 \
+                                      --final_thred 0.94 \
+                                      --save_dir result/visual_regularity
 ```
 - This script first identifies the meme variants given a hateful meme. Then, for each variant, it further automatically estimates the possible influencers. We use two popular hateful memes as case studies. Type `HappyMerchant` or `PepeTheFrog` for the input `--meme`. `--lower`, `--higher`, `--influencer_lower`, and `--final_thred` are four thresholds that needs to be manually determined and evaluated. We provide the detailed explaination and the default thresholds in the script. 
 - Output: variant-influencer pairs (.npz), a graph with memes as nodes and pairing relation as edges (.gexf), visualization of variant-influencer pairs in top-20 communities (.png)
 
 #### B. Visual-linguistic Semantic Regularity {#b-visual-linguistic-semantic-regularity}
 ```
-    python extract_visual_linguistic_regularities.py --meme HappyMerchant \
-                                                     --entity_dir data/entities \
-                                                     --data_file data/4chan.txt \
-                                                     --image_dict data/4chan_images_only.txt \
-                                                     --image_embeddings data/image_embeddings.npy \
-                                                     --image_root data/images \
-                                                     --save_dir result/visual_linguistic_regularity
+python extract_visual_linguistic_regularities.py --meme HappyMerchant \
+                                                 --entity_dir data/entities \
+                                                 --data_file data/4chan.txt \
+                                                 --image_dict data/4chan_images_only.txt \
+                                                 --image_embeddings data/image_embeddings.npy \
+                                                 --image_root data/images \
+                                                 --save_dir result/visual_linguistic_regularity
 ```
 - This script retrieves meme variants given a hateful meme and a list of entities and further conducts temporal analysis. `--entity_dir` is the directory of four types (People, GPE, NORP, ORG) of extracted entities.
 - Output: variant-entity pairs (.npz), variant occurrence (.csv), popular variants (in top-2 variants) (.png)
@@ -92,14 +92,13 @@ TODO
 If you use or find this source code or dataset useful please cite the
 following work:
 ```
-@misc{qu2022evolution, 
-    title = {On the Evolution of (Hateful) Memes by Means of Multimodal Contrastive Learning}, 
-    author = {Qu, Yiting and He, Xinlei and Pierson, Shannon and Backes, Michael and Zhang, Yang and Zannettou, Savvas}, 
-    publisher = {arXiv}, 
-    year = {2022}, 
-    doi = {10.48550/ARXIV.2212.06573}, 
-    url = {<https://arxiv.org/abs/2212.06573>},
-    copyright = {Creative Commons Attribution 4.0 International} }
+@inproceedings{QHPBZZ23,
+author = {Yiting Qu and Xinlei He and Shannon Pierson and Michael Backes and Yang Zhang and Savvas Zannettou},
+title = {{On the Evolution of (Hateful) Memes by Means of Multimodal Contrastive Learning}},
+booktitle = {{IEEE Symposium on Security and Privacy (S\&P)}},
+publisher = {IEEE},
+year = {2023}
+}
 ```
 ## Acknowledgments
 
