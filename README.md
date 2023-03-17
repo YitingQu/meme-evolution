@@ -1,6 +1,6 @@
 # On the Evolution of (Hateful) Memes by Means of Multimodal Contrastive Learning
 
-This repository is a pytorch implementation of this paper (see https://arxiv.org/abs/2212.06573) accepted by IEEE S&P 2023.
+This repository is a pytorch implementation of this [paper](https://arxiv.org/abs/2212.06573) accepted by IEEE S&P 2023.
 
 ![regularity](assets/regularity.png)
 
