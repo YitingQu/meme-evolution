@@ -2,6 +2,8 @@
 
 This repository is a pytorch implementation of this paper (see https://arxiv.org/abs/2212.06573) accepted by IEEE S&P 2023.
 
+![regularity](assets/regularity.png)
+
 Overall, this code conducts a series of multimodal analyses to understand (hateful) memes and the evolution process. First, we obtain
 multimodal meme representations, i.e., CLIP embeddings, and perform DBSCAN clustering to form meme clusters. We then conduct automatic annotation and hate assessment based on the clusters. Most importantly, this code provides a framework for identifying hateful meme variants and potential influencers. Given given a popular hateful meme and the 4chan dataset, we automatically retrieve variants by extracting visual and visual-linguistic semantic regularities.
 
@@ -49,7 +51,6 @@ python cluster.py --data_file data/4chan.txt \
 
 ### Hateful Memes Evolution
 
-![regularity](assets/regularity.png)
 
 #### A. Visual Semantic Regularity
 ```
