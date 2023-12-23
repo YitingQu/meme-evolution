@@ -41,20 +41,6 @@ python inference.py --data_file data/4chan_images_only.txt \
 CLIP model can be downloaded [here](https://drive.google.com/file/d/1N9eKM8yBWkosBe1Sr4xRB1FD2KLg0oAZ/view?usp=sharing). By changing `4chan.txt` to `4chan_images_only.txt`, we can compute non-duplicated image embeddings only to improve computing efficiency later. `4chan_images_only.txt` is also a long list of dicts with image location and its phash as keys. 
 - Output: Image-text or image embeddings saved as `embeddings.npz` or `image_embeddings.npy`.
 
-### Understanding Hateful Meme Clusters
-
-To cluster, annotate, and assess hate:
-```
-python cluster.py --data_file data/4chan.txt \
-                  --embeddings_dir data/embeddings.npz \
-                  --perspective_dir data/perspective.txt \
-                  --rewire_dir data/rewire.txt \
-                  --eps 3 \
-                  --min_samples 5 \
-                  --save_dir result/multimodal_clusters
-```
-- The input `--embeddings_dir` requires a npz file of both image and text embeddings obtained previously. `--perspective_dir` and `--rewire_dir` is text toxicity scores obtained with [Google Perspective API](https://perspectiveapi.com/) and [Rewire API](https://rewire.online/). `--eps` and `--min_samples` are DBSCAN parameters that we determine with subsets of 4chan data. 
-- Output: cluster annotations (.xlsx), cluster graph (.gexf), tsne projection (.pdf)
 
 ### Hateful Memes Evolution
 
