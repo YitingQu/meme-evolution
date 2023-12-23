@@ -123,7 +123,7 @@ class VisualLinguisticRegularity:
         for en_type in ["people", "gpe", "norp", "org"]:
 
             entities, variant_indices = self.retrieve_variants(img_idx=img_idx, entity_type=en_type)            
-            print(f"Now {variant_indices.shape[0]} pairs in total")
+            print(f"{variant_indices.shape[0]} variants of {en_type}")
             np.savez(f"{self.save_dir}/variants_{en_type}.npz", entity=entities, variant=variant_indices)
 
             def _draw_figuer_by_page(page, entities, variant_ids):
@@ -343,7 +343,7 @@ if __name__ == "__main__":
     CFG.save_dir = os.path.join(CFG.save_dir, CFG.meme)
     Path(CFG.save_dir).mkdir(exist_ok=True, parents=True)
     device = CFG.device
-    # memes_index = {"HappyMerchant": 738425, "PepeTheFrog": 4465}
+   
     memes_index = {"HappyMerchant": 0, "PepeTheFrog": 1} # wrong index, only for code testing
 
     ME = VisualLinguisticRegularity(topk=3,
@@ -357,5 +357,5 @@ if __name__ == "__main__":
                                     save_dir=CFG.save_dir)
 
     ME.visualize_variants(img_idx=memes_index[CFG.meme], show_graphes=True)
-    # ME.draw_topks()
+    ME.draw_topks()
     ME.temporal_analysis()

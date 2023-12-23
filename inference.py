@@ -150,7 +150,7 @@ def main(CFG):
     
     if CFG.data_file == "data/4chan.txt":
         inference(CFG)
-    elif CFG.data_file == "data/image_dictionary.txt":
+    elif CFG.data_file == "data/4chan_images_only.txt":
         inference_images(CFG)
     else:
         raise Exception("Wrong data file!")        
@@ -203,7 +203,3 @@ if __name__=="__main__":
 
     CFG = parser.parse_args()
     main(CFG)
-
-
-
-    

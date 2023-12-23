@@ -8,7 +8,7 @@ nltk.download('stopwords')
 nltk.download('words')
 from nltk.tokenize import word_tokenize
 from pyparsing import Keyword
-from wordcloud import WordCloud
+# from wordcloud import WordCloud
 import gensim
 from gensim.utils import simple_preprocess
 import gensim.corpora as corpora
@@ -20,10 +20,7 @@ from tqdm import tqdm
 import torch
 from tqdm import tqdm
 from transformers import GPT2LMHeadModel, GPT2TokenizerFast
-from googleapiclient import discovery
 import requests
-from keybert import KeyBERT
-from keyphrase_vectorizers import KeyphraseCountVectorizer
 nltk.download('punkt')
 
 LEXION = set(nltk.corpus.words.words())
@@ -50,14 +47,16 @@ def clean_text(text):
         words = [word for word in words if word not in STOP_WORDS]
     return words
 
-def create_wordcloud(text):
-    words = clean_text(text)
-    wordcloud = WordCloud(width=500, height=500, background_color="white", max_words=1000, contour_width=3, contour_color="steelblue")
-    wordcloud.generate(" ".join(words))
-    wordcloud.to_image()
-    return wordcloud
+# def create_wordcloud(text):
+#     words = clean_text(text)
+#     wordcloud = WordCloud(width=500, height=500, background_color="white", max_words=1000, contour_width=3, contour_color="steelblue")
+#     wordcloud.generate(" ".join(words))
+#     wordcloud.to_image()
+#     return wordcloud
 
 def extract_keywords_keybert(text, extract_rule, top_n): # check all files with this function
+    from keybert import KeyBERT
+    from keyphrase_vectorizers import KeyphraseCountVectorizer
     kw_model = KeyBERT()
     if extract_rule == "ngram":
         keyphrases = kw_model.extract_keywords(docs=text, 
@@ -136,6 +135,7 @@ def query_rewire(text):
 
 
 def query_perspective(text):
+    from googleapiclient import discovery
     key=""
     client = discovery.build(
     "commentanalyzer",

@@ -30,14 +30,14 @@ NUM_ROWS_EACH_PAGE = 20
 Two Case Studies
 
 1. Happy Merchant
-    img_idx=738425,
+    img_idx=0,
     variant_lower=0.85
     variant_upper=0.91
     influencer_lower=0.91
     final_thred=0.94
     
 2. Pepe the frog
-    img_idx=4465
+    img_idx=1
     lower_bound=0.93
     higher_bound=0.95
     influencer_lower=0.89
@@ -219,7 +219,7 @@ class VisualRegularity:
         return self.idx2phash(idx_0) == self.idx2phash(idx_1)
 
    
-    def build_graph(self, img_idx, topk_subgraph=True, community_topk=20):
+    def build_graph(self, img_idx, topk_subgraph=False, community_topk=20):
 
         import community
         np.random.seed(2022)
@@ -238,13 +238,11 @@ class VisualRegularity:
 
         communities = community.best_partition(G)   # {node_id: community_id}
         community_counter = Counter(communities.values()).most_common() # [(real_community_id, num)]
-        
 
         for node in G.nodes:
             real_community_id = communities[node]
             community_id = [i for (i, (id, _)) in enumerate(community_counter) if id == real_community_id]
             G.nodes[node]["community_id"] = community_id[0]
-            # G.nodes[node]["label"] = community_id[0]
             
         variants_influencers_ids = []
         visualized_phashes = []
@@ -262,7 +260,7 @@ class VisualRegularity:
                         influencer = n
                     else:
                         continue
-            # visualized_phashes.append(self.idx2phash(influencer))
+
             variants_candidate_indices = variants[np.where(influencers==influencer)[0]]
 
             for _idx in variants_candidate_indices:
@@ -274,8 +272,6 @@ class VisualRegularity:
                 _idx = variants_candidate_indices[0]
                 visualized_phashes.append(self.idx2phash(_idx))
                 variants_influencers_ids.append([_idx, influencer])
-
-        # print(len(np.unique(visualized_phashes)))
 
         # visualize the images for topk communities
         for i, pair in enumerate(variants_influencers_ids):
@@ -316,7 +312,7 @@ class VisualRegularity:
                 ax.set_title("Influencer", fontsize=100)
         
         plt.subplots_adjust()
-        tgt_path = f"{self.save_dir}/community/community_{community_id}_{idx_0}-{idx_1}"
+        tgt_path = f"{self.save_dir}/community/community_{community_id}"
         Path(tgt_path).mkdir(exist_ok=True, parents=True)
         plt.savefig(f"{tgt_path}/figure.png", bbox_inches="tight")
         plt.close(fig)
@@ -394,8 +390,7 @@ if __name__ == "__main__":
     CFG.save_dir = os.path.join(CFG.save_dir, CFG.meme)
     Path(CFG.save_dir).mkdir(exist_ok=True, parents=True)
 
-    # memes_index = {"HappyMerchant": 738425, "PepeTheFrog": 4465}
-    memes_index = {"HappyMerchant": 0, "PepeTheFrog": 1} # wrong index, only for code testing
+    memes_index = {"HappyMerchant": 0, "PepeTheFrog": 1}
 
     VR = VisualRegularity(topk=3,
                           n_clusters=100,
