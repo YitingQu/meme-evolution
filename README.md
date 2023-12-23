@@ -11,6 +11,12 @@ multimodal meme representations, i.e., CLIP embeddings, and perform DBSCAN clust
 ```
 pip install -r requirements.txt
 ```
+
+## Dataset
+Download [4chan meme URLs](https://zenodo.org/records/3699670#.XmZgkZNKi3A) and [4chan posts](https://zenodo.org/records/3606810)
+Then download memes locally with the URLs and build image-text pairs using two datasets.
+Note: The semantic regularities in CLIP emerge from large datasets. If you intend to reproduce our work, please ensure to download as many memes as possible (4.3M in total).
+
 ## Running the Pipeline
 
 Now we describe the running pipeline with a set of test data.
@@ -30,7 +36,7 @@ python inference.py --data_file data/4chan_images_only.txt \
                     --save_dir data
 ```
 - The input `4chan.txt` is a long list of dicts with image location, comment, and the posted time as keys. [CLIP](https://github.com/openai/CLIP) will compute both text and image embeddings and save into a npz file sequentially. The finetuned
-CLIP model can be downloaded [TODO](). By changing `4chan.txt` to `4chan_images_only.txt`, we can compute non-duplicated image embeddings only to improve computing efficiency later. `4chan_images_only.txt` is also a long list of dicts with image location and its phash as keys. 
+CLIP model can be downloaded [here](https://drive.google.com/file/d/1N9eKM8yBWkosBe1Sr4xRB1FD2KLg0oAZ/view?usp=sharing). By changing `4chan.txt` to `4chan_images_only.txt`, we can compute non-duplicated image embeddings only to improve computing efficiency later. `4chan_images_only.txt` is also a long list of dicts with image location and its phash as keys. 
 - Output: Image-text or image embeddings saved as `embeddings.npz` or `image_embeddings.npy`.
 
 ### Understanding Hateful Meme Clusters
@@ -79,9 +85,6 @@ python extract_visual_linguistic_regularities.py --meme HappyMerchant \
 - This script retrieves meme variants given a hateful meme and a list of entities and further conducts temporal analysis. `--entity_dir` is the directory of four types (People, GPE, NORP, ORG) of extracted entities.
 - Output: variant-entity pairs (.npz), variant occurrence (.csv), popular variants (in top-2 variants) (.png)
 
-## Dataset
-
-TODO
 
 ## Manual Annotation
 
