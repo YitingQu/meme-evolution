@@ -63,6 +63,7 @@ python extract_visual_regularities.py --meme HappyMerchant \
 #### B. Visual-linguistic Semantic Regularity
 ```
 python extract_visual_linguistic_regularities.py --meme HappyMerchant \
+                                                 --model_file the/finetuned/model/path \
                                                  --entity_dir data/entities \
                                                  --data_file data/4chan.txt \
                                                  --image_dict data/4chan_images_only.txt \
