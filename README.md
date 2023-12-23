@@ -14,7 +14,9 @@ pip install -r requirements.txt
 
 ## Dataset
 Download [4chan meme URLs](https://zenodo.org/records/3699670#.XmZgkZNKi3A) and [4chan posts](https://zenodo.org/records/3606810)
+
 Then download memes locally with the URLs and build image-text pairs using two datasets.
+
 Note: The semantic regularities in CLIP emerge from large datasets. If you intend to reproduce our work, please ensure to download as many memes as possible (4.3M in total).
 
 ## Running the Pipeline
