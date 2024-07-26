@@ -77,15 +77,15 @@ python extract_visual_linguistic_regularities.py --meme HappyMerchant \
 
 ## Resulting Datasets & Manual Annotation
 
-**Visual Semantic Regularities**: 3.3K variant-influencer pairs + Annotation file \\
+**Visual Semantic Regularities**: 3.3K variant-influencer pairs + Annotation file 
+
 **Visual-linguistic Semantic Regularities**: 120 variant-entity pairs + Annotation file
 
 Please find the resulting datasets and the annotations at [link](https://drive.google.com/drive/folders/1Z_ew3X7Ci83AsbpMl_1_EmgE7xjZ0uqs?usp=sharing).
 
 ## Reference
 
-If you use or find this source code or dataset useful please cite the
-following work:
+If you use or find this source code or dataset useful please cite the following work:
 ```
 @inproceedings{QHPBZZ23,
 author = {Yiting Qu and Xinlei He and Shannon Pierson and Michael Backes and Yang Zhang and Savvas Zannettou},
