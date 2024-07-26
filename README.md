@@ -45,7 +45,7 @@ CLIP model can be downloaded [here](https://drive.google.com/file/d/1N9eKM8yBWko
 ### Hateful Memes Evolution
 
 
-#### A. Visual Semantic Regularity
+#### A. Visual Semantic Regularities
 ```
 python extract_visual_regularities.py --meme HappyMerchant \
                                       --image_dict data/4chan_images_only.txt \
@@ -60,7 +60,7 @@ python extract_visual_regularities.py --meme HappyMerchant \
 - This script first identifies the meme variants given a hateful meme. Then, for each variant, it further automatically estimates the possible influencers. We use two popular hateful memes as case studies. Type `HappyMerchant` or `PepeTheFrog` for the input `--meme`. `--lower`, `--higher`, `--influencer_lower`, and `--final_thred` are four thresholds that needs to be manually determined and evaluated. We provide the detailed explaination and the default thresholds in the script. 
 - Output: variant-influencer pairs (.npz), a graph with memes as nodes and pairing relation as edges (.gexf), visualization of variant-influencer pairs in top-20 communities (.png)
 
-#### B. Visual-linguistic Semantic Regularity
+#### B. Visual-linguistic Semantic Regularities
 ```
 python extract_visual_linguistic_regularities.py --meme HappyMerchant \
                                                  --model_file the/finetuned/model/path \
@@ -75,9 +75,12 @@ python extract_visual_linguistic_regularities.py --meme HappyMerchant \
 - Output: variant-entity pairs (.npz), variant occurrence (.csv), popular variants (in top-2 variants) (.png)
 
 
-## Manual Annotation
+## Resulted Datasets & Manual Annotation
 
-TODO
+Visual Semantic Regularities: 3.3K variant-influencer pairs + Annotation file
+Visual-linguistic Semantic Regularities: 120 variant-entity pairs + Annotation file
+
+Please find the resulted datasets and the annotation results at [link](https://drive.google.com/drive/folders/1Z_ew3X7Ci83AsbpMl_1_EmgE7xjZ0uqs?usp=sharing).
 
 ## Reference
 
